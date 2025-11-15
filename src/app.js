@@ -361,6 +361,32 @@ const setButton = (el, active) => {
 setButton(kickPatternbutton, kkMuted)
 setButton(snarePatternbutton, snMuted)
 setButton(hihatPatternbutton, hhMuted)
+setButton(allmuteButton, allMuted)
+
+const syncAllMuteStateFromParts = () => {
+  const shouldBeAllMuted = kkMuted && snMuted && hhMuted
+  if (allMuted === shouldBeAllMuted) return
+  allMuted = shouldBeAllMuted
+  setButton(allmuteButton, allMuted)
+}
+
+const toggleKickMute = () => {
+  kkMuted = !kkMuted
+  setButton(kickPatternbutton, kkMuted)
+  syncAllMuteStateFromParts()
+}
+
+const toggleSnareMute = () => {
+  snMuted = !snMuted
+  setButton(snarePatternbutton, snMuted)
+  syncAllMuteStateFromParts()
+}
+
+const toggleHihatMute = () => {
+  hhMuted = !hhMuted
+  setButton(hihatPatternbutton, hhMuted)
+  syncAllMuteStateFromParts()
+}
 
 const setAllMutes = (muted) => {
   allMuted = muted
@@ -481,16 +507,13 @@ playAudio()
 
 // BUTTON CLICKS
 kickPatternbutton.addEventListener('mousedown', () => {
-  kkMuted = !kkMuted
-  setButton(kickPatternbutton, kkMuted)
+  toggleKickMute()
 })
 snarePatternbutton.addEventListener('mousedown', () => {
-  snMuted = !snMuted
-  setButton(snarePatternbutton, snMuted)
+  toggleSnareMute()
 })
 hihatPatternbutton.addEventListener('mousedown', () => {
-  hhMuted = !hhMuted
-  setButton(hihatPatternbutton, hhMuted)
+  toggleHihatMute()
 })
 allmuteButton.addEventListener('mousedown', () => setAllMutes(!allMuted))
 
@@ -508,23 +531,29 @@ midiToggleButton.addEventListener('mousedown', () => {
 
 // KEYBOARD
 window.addEventListener("keydown", (e) => {
-  switch (e.key) {
-    case "q": if (!allMuted) { kkMuted = true; setButton(kickPatternbutton, true) } break
-    case "w": if (!allMuted) { snMuted = true; setButton(snarePatternbutton, true) } break
-    case "e": if (!allMuted) { hhMuted = true; setButton(hihatPatternbutton, true) } break
-    case "r": setAllMutes(!allMuted); break
-    case "1": loadKit(0); break
-    case "2": loadKit(1); break
-    case "3": loadKit(2); break
-  }
-})
-
-window.addEventListener("keyup", (e) => {
-  if (allMuted) return
-  switch (e.key) {
-    case "q": kkMuted = false; setButton(kickPatternbutton, false); break
-    case "w": snMuted = false; setButton(snarePatternbutton, false); break
-    case "e": hhMuted = false; setButton(hihatPatternbutton, false); break
+  if (e.repeat) return
+  switch (e.key.toLowerCase()) {
+    case "q":
+      toggleKickMute()
+      break
+    case "w":
+      toggleSnareMute()
+      break
+    case "e":
+      toggleHihatMute()
+      break
+    case "r":
+      setAllMutes(!allMuted)
+      break
+    case "1":
+      loadKit(0)
+      break
+    case "2":
+      loadKit(1)
+      break
+    case "3":
+      loadKit(2)
+      break
   }
 })
 
