@@ -4,6 +4,13 @@
 <head>
     <meta charset="utf-8">
     <title>R-VAE-JS</title>
+    <script>
+      window.paceOptions = {
+        ajax: {
+          trackWebSockets: false
+        }
+      }
+    </script>
     <script src="libs/pace.min.js"></script>
     <link href="libs/pace-theme-center-atom.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet"> 
@@ -77,6 +84,9 @@
             <select id="modelSelect"></select>
             <button id="modelLoadButton">Load Model</button>
             <span id="modelStatusLabel" class="model-status"></span>
+        </div>
+        <div id="linkControls" class="center">
+            <button id="linkToggleButton">Disable Ableton Link</button>
         </div>
     </div><!-- wrapper -->
     <!-- page-wrapper -->

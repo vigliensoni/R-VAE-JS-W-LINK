@@ -15,6 +15,7 @@ const allmuteButton = document.getElementById('allmuteButton')
 
 const browserMuteButton = document.getElementById('browserMuteButton')
 const midiToggleButton   = document.getElementById('midiToggleButton')
+const linkToggleButton = document.getElementById('linkToggleButton')
 const kkMidiNoteInput = document.getElementById('kkMidiNoteInput')
 const snMidiNoteInput = document.getElementById('snMidiNoteInput')
 const hhMidiNoteInput = document.getElementById('hhMidiNoteInput')
@@ -25,6 +26,7 @@ const modelStatusLabel = document.getElementById('modelStatusLabel')
 // --- NEW STATE ---
 let browserSamplesMuted = true
 let midiEnabled = false   // MIDI sending allowed when true
+let linkEnabled = true
 
 
 // helper to update button styles
@@ -36,6 +38,12 @@ const setToggleButton = (el, active) => {
 
 setToggleButton(browserMuteButton, browserSamplesMuted)
 setToggleButton(midiToggleButton, !midiEnabled)
+const updateLinkToggleButton = () => {
+  if (!linkToggleButton) return
+  setToggleButton(linkToggleButton, linkEnabled)
+  linkToggleButton.textContent = linkEnabled ? "Disable Ableton Link" : "Enable Ableton Link"
+}
+updateLinkToggleButton()
 
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v))
 
@@ -174,7 +182,7 @@ noiseDial.on('change', v => {
 tempoDial.on('change',   v => {
   tempoValue = v
   clock.setTempo(tempoValue)
-  if (!suppressTempoBroadcast && linkSocket) {
+  if (!suppressTempoBroadcast && linkEnabled && linkSocket) {
     linkSocket.sendTempo(tempoValue)
   }
 })
@@ -278,7 +286,7 @@ if (hhMidiNoteInput) {
 }
 
 function syncTempoDialWithRemote(bpm) {
-  if (!Number.isFinite(bpm)) return
+  if (!linkEnabled || !Number.isFinite(bpm)) return
   const bounded = clamp(bpm, TEMPO_MIN, TEMPO_MAX)
   if (Math.abs(bounded - tempoValue) < 0.001) return
   suppressTempoBroadcast = true
@@ -288,9 +296,18 @@ function syncTempoDialWithRemote(bpm) {
   suppressTempoBroadcast = false
 }
 
+function destroyLinkClockBridge() {
+  if (linkSocket) {
+    linkSocket.close()
+    linkSocket = null
+  }
+}
+
 function initLinkClockBridge() {
+  if (!linkEnabled || linkSocket) return
   linkSocket = createLinkSocket({
     onState: (state = {}, timestamp) => {
+      if (!linkEnabled) return
       clock.updateFromRemote({ ...state, timestamp })
       syncTempoDialWithRemote(state.bpm)
     },
@@ -528,6 +545,18 @@ midiToggleButton.addEventListener('mousedown', () => {
   midiEnabled = !midiEnabled
   setToggleButton(midiToggleButton, !midiEnabled) // active = muted/off
 })
+
+if (linkToggleButton) {
+  linkToggleButton.addEventListener('mousedown', () => {
+    linkEnabled = !linkEnabled
+    if (linkEnabled) {
+      initLinkClockBridge()
+    } else {
+      destroyLinkClockBridge()
+    }
+    updateLinkToggleButton()
+  })
+}
 
 // KEYBOARD
 window.addEventListener("keydown", (e) => {
