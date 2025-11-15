@@ -92,6 +92,16 @@ const MODELS_LS_DATA = {
     "model-url": "https://raw.githubusercontent.com/vigliensoni/R-VAE-models/master/2-step-all-Future-Step/model.json", 
     "space-url": "https://raw.githubusercontent.com/vigliensoni/R-VAE-models/master/2-step-all-Future-Step/model-matrix-LS.data"
   },  
+  '2-step-beatnik': {
+    "name": "model-04",
+    "model-url": "https://raw.githubusercontent.com/vigliensoni/R-VAE-models/master/2-step-beatnik-126/model.json", 
+    "space-url": "https://raw.githubusercontent.com/vigliensoni/R-VAE-models/master/2-step-beatnik-126/model-matrix-LS.data"
+  },  
+  '2-step-garage': {
+    "name": "model-05",
+    "model-url": "https://raw.githubusercontent.com/vigliensoni/R-VAE-models/master/2-step-ukgarage-135/model.json", 
+    "space-url": "https://raw.githubusercontent.com/vigliensoni/R-VAE-models/master/2-step-ukgarage-135/model-matrix-LS.data"
+  },      
   '2-clips-12-epochs': {
     "name": "2-clips-12-epochs",
     "model-url": "data/02-clips-12-epochs/model.json", 
