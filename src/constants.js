@@ -78,17 +78,17 @@ const MIDI_DRUM_MAP = {
 
 const MODELS_LS_DATA = {
   'footwork': {
-    "name": "footwork",
+    "name": "model-01",
     "model-url": "https://raw.githubusercontent.com/vigliensoni/R-VAE-models/master/footwork-model/model.json", 
     "space-url": "https://raw.githubusercontent.com/vigliensoni/R-VAE-models/master/footwork-model/model-matrix-LS.data"
   },
   'trap': {
-    "name": "trap",
+    "name": "model-02",
     "model-url": "https://raw.githubusercontent.com/vigliensoni/R-VAE-models/master/trap_all_files.model/model.json", 
     "space-url": "https://raw.githubusercontent.com/vigliensoni/R-VAE-models/master/trap_all_files.model/model-matrix-LS.data"
   },
   'future-step': {
-    "name": "future-step",
+    "name": "model-03",
     "model-url": "https://raw.githubusercontent.com/vigliensoni/R-VAE-models/master/2-step-all-Future-Step/model.json", 
     "space-url": "https://raw.githubusercontent.com/vigliensoni/R-VAE-models/master/2-step-all-Future-Step/model-matrix-LS.data"
   },  

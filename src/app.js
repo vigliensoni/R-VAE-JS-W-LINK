@@ -1,7 +1,7 @@
 // AUDIO CLOCK + SAMPLES (optimized)
 
 import { kkPat, snPat, hhPat, kkVel, snVel, hhVel, latspaceRetriever } from "."
-import { loadModelById, getActiveModelId, initialModelPromise } from "./modelRegistry.js"
+import { loadModelById, getActiveModelId } from "./modelRegistry.js"
 import * as vis from "./visualization.js"
 import { mouseX as lsX, mouseY as lsY, markDecodeAt, setTrailFadeSeconds } from './canvas.js'
 import { LinkClock, createLinkSocket } from './linkClock.js'
@@ -215,19 +215,12 @@ const refreshCurrentLatent = () => {
 }
 
 populateModelSelect()
-if (initialModelPromise) {
-  setModelUiDisabled(true)
-  setModelStatus(`Loading ${modelName(getActiveModelId())}…`)
-  initialModelPromise
-    .then(() => {
-      setModelStatus(`${modelName(getActiveModelId())} ready`)
-      refreshCurrentLatent()
-    })
-    .catch(err => {
-      console.error('Initial model failed to load', err)
-      setModelStatus('Failed to load initial model', true)
-    })
-    .finally(() => setModelUiDisabled(false))
+const defaultModelId = getActiveModelId()
+if (defaultModelId) {
+  if (modelSelect && modelSelect.value !== defaultModelId) {
+    modelSelect.value = defaultModelId
+  }
+  handleModelLoadRequest(defaultModelId)
 }
 
 async function handleModelLoadRequest(modelId) {

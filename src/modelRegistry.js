@@ -6,14 +6,14 @@ const MODEL_IDS = Object.keys(MODELS_LS_DATA);
 const DEFAULT_MODEL_ID = MODEL_IDS.includes('trap') ? 'trap' : MODEL_IDS[0];
 
 const modelState = {
-  activeModelId: DEFAULT_MODEL_ID,
+  activeModelId: null,
   pendingModelId: null,
   pendingPromise: null,
   modelLoadToken: 0,
 };
 
 export function getActiveModelId() {
-  return modelState.activeModelId;
+  return modelState.activeModelId || DEFAULT_MODEL_ID;
 }
 
 export function getModelIds() {
@@ -60,7 +60,3 @@ export async function loadModelById(modelId) {
   modelState.pendingPromise = loadPromise;
   return modelState.pendingPromise;
 }
-
-export const initialModelPromise = loadModelById(DEFAULT_MODEL_ID).catch(err => {
-  console.error('Failed to load initial model', err);
-});

@@ -316,4 +316,4 @@ function latspaceRetriever (mouseX, mouseY) {
 }
 
 export { latspaceRetriever, kkPat, snPat, hhPat, kkVel, snVel, hhVel }
-export { loadModelById, getActiveModelId, initialModelPromise } from './modelRegistry.js'
+export { loadModelById, getActiveModelId } from './modelRegistry.js'
