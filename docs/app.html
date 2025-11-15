@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>R-VAE-JS</title>
+    <script src="libs/pace.min.js"></script>
+    <link href="libs/pace-theme-center-atom.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Staatliches" rel="stylesheet" type="text/css">
+
+    <script src="./libs/nexusUI.js" type="text/javascript"></script>
+    <script src="./libs/maximilian.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/webmidi@2.0.0" type="text/javascript"></script>
+    <link rel="stylesheet" href="./styleCSS.css" type="text/css">
+</head>
+
+<body>
+    <div id="page-wrapper">
+        <!-- Header -->
+
+        <div>
+            <div id="header">
+                <!-- Logo -->
+
+            <div id="logo">
+                <h1>R-VAE</h1>
+                <p id="subtitle">Rhythmic explorations <br>of latent spaces</p>
+            </div>
+
+
+            <div class="outer-knobs">
+                <div class="knobs" id="thresholdDial"><div class="knob-text">THRES</div></div>
+                <div class="knobs" id="noiseDial"><div class="knob-text">NOISE</div></div>
+                <div class="knobs" id="tempoDial"><div class="knob-text">TEMPO</div></div>
+                <div class="knobs" id="volumeDial"><div class="knob-text">VOLUME</div></div>
+            </div>
+
+
+            </div>
+        </div><!-- header wrapper -->
+
+        <div class="LSwrapper">
+            <div class="spaceContainer">
+                <canvas class="box" id="LSVisualizer"></canvas>
+                <canvas class="box overlay" id="playbackheadSpace"></canvas>
+            </div>
+
+            <div id="oscilloscope"></div>
+            <div id="spectrogram"></div>
+            <div id="clock"></div>
+
+        </div>
+        <div id="mutes" class="center">
+            <div class="instrument-row">
+                <div class="instrument-control">
+                    <button id="kickPatternbutton">Kk | Q</button>
+                    <select id="kkMidiNoteInput"></select>
+                </div>
+                <div class="instrument-control">
+                    <button id="snarePatternbutton">Sn | W</button>
+                    <select id="snMidiNoteInput"></select>
+                </div>
+                <div class="instrument-control">
+                    <button id="hihatPatternbutton">Hh | E</button>
+                    <select id="hhMidiNoteInput"></select>
+                </div>
+                <button id="allmuteButton">All | R</button>
+            </div>
+            <div class="utility-row">
+                <button id="browserMuteButton">Mute Browser Samples</button>
+                <button id="midiToggleButton">Toggle MIDI</button>
+            </div>
+        </div>
+        <div id="modelControls" class="center">
+            <label for="modelSelect">Model</label>
+            <select id="modelSelect"></select>
+            <button id="modelLoadButton">Load Model</button>
+            <span id="modelStatusLabel" class="model-status"></span>
+        </div>
+    </div><!-- wrapper -->
+    <!-- page-wrapper -->
+
+
+    <!-- <div class="spaceContainer">
+        <canvas class="box"></canvas>
+        <canvas class="box overlay"></canvas>
+      </div> -->
+
+
+
+    <script src="main.js" type="text/javascript"></script>
+</body>
+</html>
