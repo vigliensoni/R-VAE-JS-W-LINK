@@ -23,15 +23,19 @@ const modelLoadButton = document.getElementById('modelLoadButton')
 const modelStatusLabel = document.getElementById('modelStatusLabel')
 
 // --- NEW STATE ---
-let browserSamplesMuted = false
-let midiEnabled = true   // MIDI sending allowed when true
+let browserSamplesMuted = true
+let midiEnabled = false   // MIDI sending allowed when true
 
 
 // helper to update button styles
 const setToggleButton = (el, active) => {
+  if (!el) return
   el.style.background = active ? "#4444FF" : "#000000"
   el.style.color = active ? "#FFFFFF" : "#FFD12C"
 }
+
+setToggleButton(browserMuteButton, browserSamplesMuted)
+setToggleButton(midiToggleButton, !midiEnabled)
 
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v))
 
@@ -343,15 +347,20 @@ function stopNoiseWander() {
 }
 
 // MUTE STATE
-let kkMuted = false
-let snMuted = false
-let hhMuted = false
+let kkMuted = true
+let snMuted = true
+let hhMuted = true
 let allMuted = false
 
 const setButton = (el, active) => {
+  if (!el) return
   el.style.background = active ? "#FF0000" : "#000000"
   if (el === allmuteButton) el.style.color = active ? "#000000" : "#FFD12C"
 }
+
+setButton(kickPatternbutton, kkMuted)
+setButton(snarePatternbutton, snMuted)
+setButton(hihatPatternbutton, hhMuted)
 
 const setAllMutes = (muted) => {
   allMuted = muted
