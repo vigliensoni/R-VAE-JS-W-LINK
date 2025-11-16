@@ -1,5 +1,7 @@
-/* :root {
-  --canvassize: 900; */
+:root {
+  --ls-canvas-width: 360px;
+  --knob-size: clamp(40px, calc(var(--ls-canvas-width) / 8), 110px);
+  --knob-gap: clamp(6px, calc(var(--ls-canvas-width) / 60), 18px);
 }
 
 #inner-container {
@@ -201,26 +203,32 @@ a:hover{
 
 .outer-knobs {
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 70%;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  width: min(100%, var(--ls-canvas-width));
   color: white;
   margin: 10px auto;
   position: relative;
   text-align:center;
   top: -225px;
+  gap: var(--knob-gap);
 }
 
 .knobs {
-  height: 100px;
-  width: 100px;
-  margin: 20px;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: var(--knob-size);
+  width: var(--knob-size);
+  margin: 0;
 }
 
 .knob-text {
-    margin-left: -5px;
-    font-size: 15px;
-    font: Rubik;
+  margin-left: -5px;
+  margin-top: 12px;
+  font-size: 15px;
+  font: Rubik;
+  color: #444;
 }
 
 .instrument-row,
