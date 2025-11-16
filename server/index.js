@@ -4,7 +4,7 @@ const path = require("path");
 const { WebSocketServer } = require("ws");
 const AbletonLink = require("abletonlink");
 
-const PORT = Number(process.env.PORT) || 3000;
+const PORT = Number(process.env.PORT) || 808;
 const BROADCAST_INTERVAL_MS = 50;
 
 const app = express();

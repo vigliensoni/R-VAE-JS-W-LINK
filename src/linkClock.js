@@ -210,6 +210,6 @@ export function createLinkSocket({
 function guessDefaultUrl() {
   const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
   const host = window.__ABLETON_LINK_HOST__ || window.location.hostname;
-  const port = window.__ABLETON_LINK_PORT__ || 3000;
+  const port = window.__ABLETON_LINK_PORT__ || 808;
   return `${protocol}//${host}:${port}`;
 }

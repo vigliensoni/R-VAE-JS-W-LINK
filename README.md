@@ -33,7 +33,7 @@ The Link bridge is bundled with this project so the browser sequencer can join a
 
 1. Build (or rebuild) the client bundle: `npm run build`
 2. Launch the bridge server: `npm start`
-3. Open `http://localhost:3000` in a browser tab – the static assets in `dist/` are served automatically.
+3. Open `http://localhost:808` in a browser tab – the static assets in `dist/` are served automatically.
 4. Join the Ableton Link session from other peers; the tempo dial in the UI now follows (and publishes to) the shared Link tempo.
 
 
